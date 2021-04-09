@@ -66,5 +66,18 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+.van-tabs__nav--complete {
+  padding-left: 0;
+  padding-right: 0;
+}
+.van-tabs__nav--line {
+  padding-bottom: .16rem;
+}
+.van-tabs__nav {
+  justify-content: space-around;
+}
+.van-tabs__line {
+  height: .06rem;
+}
 </style>
