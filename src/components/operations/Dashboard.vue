@@ -29,8 +29,10 @@
         <span>全球会员总数量：</span>
         <span class="amount">899，898</span>
       </p> 
-      <div class="details">
-        <div class="spread">
+    </div>
+    <div class="details">
+      <transition name="fade">
+        <div class="spread" v-if="isServiceCardShowMore">
           <div class="spread_title">
             <p>
               <span>董事服务商：</span>
@@ -50,14 +52,14 @@
               <span class="num">20,000</span>
             </p>
           </div>
-          <div class="arrow">
+          <div class="arrow" @click="isServiceCardShowMore = false">
             <img class="gray_arrow" src="../../assets/imgs/gray_top_arrow.png"/>
           </div>
         </div>
-        <!-- <div class="arrow">
+        <div class="arrow_hide" @click="isServiceCardShowMore = true" v-else>
           <img class="gray_arrow" src="../../assets/imgs/gray_bottom_arrow.png"/>
-        </div> -->
-      </div>
+        </div>
+      </transition>
     </div>
     <!-- 总出货率 -->
     <div class="card stock_card">
@@ -88,7 +90,6 @@
     <div class="rank_outer">
       <MemberItem class="rank" v-for="item in 4" :key="item"></MemberItem>
     </div>
-
     <!-- 本月KA业绩排名 -->
     <div class="session_title">
       <div class="left">
@@ -111,7 +112,9 @@ export default {
     KAItem
   },
   data() {
-    return {};
+    return {
+      isServiceCardShowMore: false
+    };
   },
   mounted() {
     console.log('mounted');
@@ -119,65 +122,20 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+@import "../../assets/styles/operations/public.scss";
 .outer {
   padding: .24rem;
-  .card {
-    box-shadow: 0px 0.08rem 0.18rem 0px rgb(96 96 100 / 50%);
-    border-radius: 0.2rem;
-    box-sizing: border-box;
-    color: #fff;
-    font-size: .32rem;
-    width: 100%;   
-    height: 3.37rem;
-    padding: .1rem .2rem;
-    margin-bottom: .34rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    position: relative;
-    z-index: 1;
-    .title_box {
-      display: flex;
-      align-items: center;
-    }
-    .tips_icon {
-      width: .26rem;
-      height: .26rem;
-    }
-    .title {
-      margin-left: .1rem;
-      &::after {
-        content: "";
-        display: inline-block;
-        border-left: .10rem solid rgba(255, 255, 255, .6);
-        border-right: .10rem solid transparent;
-        border-bottom: .10rem solid transparent;
-        border-top: .10rem solid transparent;
-        margin-left: .1rem;
-      }
-    }
-    .digit {
-      color: rgba(255, 231, 66, 1);
-      font-size: .6rem;
-      font-weight: 600;
-      border-bottom: .01rem solid rgba(255, 255, 255, .2);
-      padding-bottom: .4rem;
-      .pre {
-        font-size: .4rem;
-      }
-    }
-    .amount {
-      color: rgba(255, 231, 66, 1);
-    }
-  }
   .money_card {
     background: url(../../assets/imgs/index_bg.png) top right / 3.63rem 3.37rem no-repeat, linear-gradient(-90deg, rgba(130, 47, 246, 1), rgba(94, 22, 194, 1));
   }
   .service_card {
     background: url(../../assets/imgs/index_bg.png) top right / 3.63rem 3.37rem no-repeat, linear-gradient(90deg, rgba(45, 52, 175, 1), rgba(78, 89, 239, 1));
+    margin-top: .34rem;
   }
   .stock_card {
     background: url(../../assets/imgs/index_bg.png) top right / 3.63rem 3.37rem no-repeat, linear-gradient(-90deg, rgba(0, 211, 242, 1), rgba(0, 167, 236, 1));
+    height: 3.83rem;
+    margin-top: .34rem;
   }
   .session_title {
     color: #000;
@@ -216,11 +174,7 @@ export default {
     width: 100%;
     padding: .3rem .2rem .1rem;
     box-sizing: border-box;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    top: 3.2rem;
-    z-index: 2;
+    border-radius: 0 0 .2rem .2rem;
     .spread {
       font-size: .28rem;
       .spread_title {
@@ -266,10 +220,19 @@ export default {
       text-align: center;
       padding: .2rem;
     }
-    .gray_arrow {
-      width: .32rem;
-      height: .18rem;
+    .arrow_hide {
+      text-align: center;
+      height: .4rem;
+      position: relative;
+      overflow: auto;
+      .gray_arrow {
+        position: absolute;
+      }
     }
+  }
+  .gray_arrow {
+    width: .32rem;
+    height: .18rem;
   }
 }
 </style>

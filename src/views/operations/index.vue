@@ -42,11 +42,11 @@ export default {
     return {
       tabList: [
         {name: 'Dashboard', title: '总览'},
-        {name: 'Customer', title: '大客户'},
         {name: 'Performance', title: '业绩'},
         {name: 'Members', title: '会员'},
-        {name: 'Stock', title: '出货'},
-        {name: 'Deliver', title: '进货'},
+        {name: 'Customer', title: '大客户'},
+        {name: 'Deliver', title: '出货'},
+        {name: 'Stock', title: '进货'},
       ],
       activeName: 'dashboard',
       currentTabComponent: 'Dashboard'
