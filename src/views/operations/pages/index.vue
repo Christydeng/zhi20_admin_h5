@@ -8,10 +8,10 @@
         <van-icon name="search" size="18" color="rgba(10, 9, 29, 1)" />
       </template>
     </van-nav-bar>
-    <van-tabs :active="activeName" @click="changeTab">
+    <van-tabs>
       <van-tab v-for="item in tabList" :key="item.name" 
         :title="item.title" :name="item.name">
-        <component :is="currentTabComponent"></component>
+        <component :is="item.name"></component>
       </van-tab>
     </van-tabs>
   </div>
@@ -19,12 +19,12 @@
 
 <script>
 import { NavBar, Icon, Tab, Tabs  } from "vant";
-import Dashboard from "/src/components/operations/Dashboard.vue"
-import Customer from "/src/components/operations/Customer.vue"
-import Performance from "/src/components/operations/Performance.vue"
-import Members from "/src/components/operations/Members.vue"
-import Stock from "/src/components/operations/Stock.vue"
-import Deliver from "/src/components/operations/Deliver.vue"
+import Dashboard from "../components/Dashboard.vue"
+import Customer from "../components/Customer.vue"
+import Performance from "../components/Performance.vue"
+import Members from "../components/Members.vue"
+import Stock from "../components/Stock.vue"
+import Deliver from "../components/Deliver.vue"
 export default {
   components: {
     [NavBar.name]: NavBar,
@@ -48,8 +48,6 @@ export default {
         {name: 'Deliver', title: '出货'},
         {name: 'Stock', title: '进货'},
       ],
-      activeName: 'dashboard',
-      currentTabComponent: 'Dashboard'
     }
   },
   methods: {
@@ -59,9 +57,6 @@ export default {
     onClickRight() {
       console.log('搜索');
     },
-    changeTab(name, title) {
-      this.currentTabComponent = name;
-    }
   },
 }
 </script>

@@ -3,7 +3,7 @@
     <!-- 总业绩 -->
     <div class="card money_card">
       <div class="title_box">
-        <img class="tips_icon" src="../../assets/imgs/yellow_tips.png"/>
+        <img class="tips_icon" src="../imgs/tips_yellow.png"/>
         <p class="title">2021年总业绩</p>
       </div>
       <p class="digit">
@@ -19,7 +19,7 @@
     <!-- 全球服务商总数量 -->
     <div class="card service_card">
       <div class="title_box">
-        <img class="tips_icon" src="../../assets/imgs/yellow_tips.png"/>
+        <img class="tips_icon" src="../imgs/tips_yellow.png"/>
         <p class="title">全球服务商总数量</p>
       </div>
       <p class="digit">
@@ -53,18 +53,18 @@
             </p>
           </div>
           <div class="arrow" @click="isServiceCardShowMore = false">
-            <img class="gray_arrow" src="../../assets/imgs/gray_top_arrow.png"/>
+            <img class="gray_arrow" src="../imgs/gray_top_arrow.png"/>
           </div>
         </div>
         <div class="arrow_hide" @click="isServiceCardShowMore = true" v-else>
-          <img class="gray_arrow" src="../../assets/imgs/gray_bottom_arrow.png"/>
+          <img class="gray_arrow" src="../imgs/gray_bottom_arrow.png"/>
         </div>
       </transition>
     </div>
     <!-- 总出货率 -->
     <div class="card stock_card">
       <div class="title_box">
-        <img class="tips_icon" src="../../assets/imgs/yellow_tips.png"/>
+        <img class="tips_icon" src="../imgs/tips_yellow.png"/>
         <p class="title">2021年总出货率</p>
       </div>
       <p class="digit">
@@ -104,8 +104,8 @@
   </div>
 </template>
 <script>
-import MemberItem from "/src/components/operations/MemberItem.vue"
-import KAItem from "/src/components/operations/KAItem.vue"
+import MemberItem from "./MemberItem.vue"
+import KAItem from "./KAItem.vue"
 export default {
   components: {
     MemberItem,
@@ -117,23 +117,26 @@ export default {
     };
   },
   mounted() {
-    console.log('mounted');
-  }
+    console.log('Dashboard mounted');
+  },
+  unmounted() {
+    console.log('Dashboard unmounted');
+  },
 };
 </script>
 <style lang="scss" scoped>
-@import "../../assets/styles/operations/public.scss";
+@import "../styles/public.scss";
 .outer {
   padding: .24rem;
   .money_card {
-    background: url(../../assets/imgs/index_bg.png) top right / 3.63rem 3.37rem no-repeat, linear-gradient(-90deg, rgba(130, 47, 246, 1), rgba(94, 22, 194, 1));
+    background: url(../imgs/index_bg.png) top right / 3.63rem 3.37rem no-repeat, linear-gradient(-90deg, rgba(130, 47, 246, 1), rgba(94, 22, 194, 1));
   }
   .service_card {
-    background: url(../../assets/imgs/index_bg.png) top right / 3.63rem 3.37rem no-repeat, linear-gradient(90deg, rgba(45, 52, 175, 1), rgba(78, 89, 239, 1));
+    background: url(../imgs/index_bg.png) top right / 3.63rem 3.37rem no-repeat, linear-gradient(90deg, rgba(45, 52, 175, 1), rgba(78, 89, 239, 1));
     margin-top: .34rem;
   }
   .stock_card {
-    background: url(../../assets/imgs/index_bg.png) top right / 3.63rem 3.37rem no-repeat, linear-gradient(-90deg, rgba(0, 211, 242, 1), rgba(0, 167, 236, 1));
+    background: url(../imgs/index_bg.png) top right / 3.63rem 3.37rem no-repeat, linear-gradient(-90deg, rgba(0, 211, 242, 1), rgba(0, 167, 236, 1));
     height: 3.83rem;
     margin-top: .34rem;
   }

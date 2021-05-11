@@ -3,10 +3,20 @@ import {
 } from "vue-router"
 
 const routes = [
+    // 中食指挥室
     {
         name: 'operations',
         path: '/operations/index',
-        component: () => import('./views/operations/index.vue'),
+        component: () => import('./views/operations/pages/index.vue'),
+        meta: {
+            title: '中食指挥室'
+        }
+    },
+    // 图片识别
+    {
+        name: 'imageRecognition',
+        path: '/imageRecognition/index',
+        component: () => import('./views/imageRecognition/pages/index.vue'),
         meta: {
             title: '中食指挥室'
         }

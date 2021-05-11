@@ -1,7 +1,7 @@
 <template>
   <div class="rank_item">
     <div class="left">
-      <img src="../../assets/imgs/top_first.png" class="rank_icon" />
+      <img src="../imgs/top_first.png" class="rank_icon" />
       <span class="name">马蒂黛娜</span>
       <span>10</span>
     </div>

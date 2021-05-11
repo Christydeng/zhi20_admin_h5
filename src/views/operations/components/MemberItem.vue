@@ -1,8 +1,8 @@
 <template>
   <div class="rank_item">
     <div class="left">
-      <img src="../../assets/imgs/top_third.png" class="avatar" />
-      <img src="../../assets/imgs/top_first.png" class="rank_icon" />
+      <img src="../imgs/top_third.png" class="avatar" />
+      <img src="../imgs/top_first.png" class="rank_icon" />
     </div>
     <div class="right">
       <div>
