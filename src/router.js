@@ -14,11 +14,19 @@ const routes = [
     },
     // 图片识别
     {
-        name: 'imageRecognition',
+        name: 'imageRecognitionIndex',
         path: '/imageRecognition/index',
         component: () => import('./views/imageRecognition/pages/index.vue'),
         meta: {
-            title: '中食指挥室'
+            title: '上传图片'
+        }
+    },
+    {
+        name: 'imageRecognitionInfo',
+        path: '/imageRecognition/info',
+        component: () => import('./views/imageRecognition/pages/info.vue'),
+        meta: {
+            title: '信息'
         }
     }
 ]

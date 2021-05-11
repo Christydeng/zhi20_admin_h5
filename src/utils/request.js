@@ -40,17 +40,29 @@ service.interceptors.response.use(
   }
 )
 
-function request(data) {
+/**
+ * 
+ * @param data {data, url, method}//参数,url,method
+ * @returns 
+ */
+
+function request(pack) {
+  let method = pack.method || 'post'
   let ajaxData = {
-      method: "post",
-      ...data,
+      method,
+      url: pack.url
   }
-  console.log('ajaxData: ', ajaxData);
-  service(ajaxData).then(function (res) {
-    console.log('res--: ', res);
-    return res;
-  }).catch(function (err) {
-    console.log('err--: ', err);
+  if (method === 'get') {
+    ajaxData.params = pack.data;
+  } else  {
+    ajaxData.data = pack.data;
+  }
+  return new Promise((resolve, reject) => {
+    service(ajaxData).then(function (res) {
+      resolve(res)
+    }).catch(function (err) {
+      reject(err)
+    })
   })
 }
 

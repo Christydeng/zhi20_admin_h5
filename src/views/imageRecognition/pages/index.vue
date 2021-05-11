@@ -1,6 +1,11 @@
 <template>
-  <div>
+  <div class="outer">
     <van-form @submit="onSubmit">
+      <van-field name="uploader" label="头像上传">
+        <template #input>
+          <van-uploader v-model="fileList" multiple :max-count="1"/>
+        </template>
+      </van-field>
       <van-field
         v-model="username"
         name="用户名"
@@ -8,19 +13,14 @@
         placeholder="用户名"
         :rules="[{ required: true, message: '请填写用户名' }]">
       </van-field>
-      <van-field name="uploader" label="头像上传">
-        <template #input>
-          <van-uploader v-model="fileList" multiple :max-count="1" :after-read="afterFileRead"/>
-        </template>
-      </van-field>
-      <van-button round block type="info" native-type="submit">提交</van-button>
+      <van-button style="margin-top: 60px" round block type="primary" native-type="submit">提交</van-button>
     </van-form>
   </div>
 </template>
 <script>
 import { Uploader, Form, Field, Button  } from "vant";
-import {$http} from "@/utils/request.js"
-import {apiUrls}  from "@/utils/config.js"
+import { $http } from "@/utils/request.js"
+import { apiUrls }  from "@/utils/config.js"
 export default {
   components: {
     [Uploader.name]: Uploader,
@@ -32,31 +32,61 @@ export default {
     return {
       username: '',
       fileList: [],
+      policyObj: '',
+      imageUrl: ''
     };
   },
   created() {
     this.getPolicy();
   },
   methods: {
-    afterFileRead(file, detail) {
-      console.log('file: ', file.content);
-      console.log('detail: ', detail);
-    },
-    async getPolicy() {
-      console.log(0)
-      let res = await $http({
+    getPolicy() {
+      $http({
         method: 'get',
         url: apiUrls.ossPolicy.url
-      });
-      console.log('res getPolicy: ', res);
-    },
-    async onSubmit() {
-      $http({
-        url: '',
-        method: 'get',
-        url: 'http://testv3.sahhealthgroup.com/api/face/ossPolicy'
+      }).then((res) => {
+        this.policyObj = res.data;
       })
+    },
+    onSubmit() {
+      let {
+        policyObj, 
+        fileList
+      } = this;
+      let resources = [];
+      fileList.map(i => {
+        let filePath = i.file;  //图片资源
+        let imgType = i.file.type.split('/')[1];  //图片类型
+        let key = new Date().getTime() + Math.floor(Math.random() * 150) + '.' + imgType;
+        let request = new FormData();
+        request.append('OSSAccessKeyId', policyObj.accessid);// Bucket 拥有者的Access Key Id。
+        request.append('policy', policyObj.policy);// policy规定了请求的表单域的合法性
+        request.append('signature', policyObj.signature);// 根据Access Key Secret和policy计算的签名信息，OSS验证该签名信息从而验证该Post请求的合法性
+        request.append('key', policyObj.dir + key);// 文件名字，可设置路径
+        request.append('success_action_status', 200);// 让服务端返回200,不然，默认会返回204
+        request.append('file', filePath);// 需要上传的文件 file
+        $http({
+          method: 'post',
+          url: policyObj.host,
+          data: request,
+        }).then((res) => {
+          this.imageUrl = policyObj.host + '/' + policyObj.dir + key
+          this.toNext();
+        })
+      })
+    },
+    toNext() {
+      this.$router.push(`/imageRecognition/info?username=${this.username}&imageUrl=${this.imageUrl}`);
     }
   }
 };
 </script>
+<style lang="scss" scoped>
+  .outer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 0;
+  }
+</style>
+
