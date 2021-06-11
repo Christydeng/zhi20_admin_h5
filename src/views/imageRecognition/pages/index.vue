@@ -1,20 +1,26 @@
 <template>
   <div class="outer">
-    <van-form @submit="onSubmit">
-      <van-field name="uploader" label="头像上传">
-        <template #input>
-          <van-uploader v-model="fileList" multiple :max-count="1"/>
-        </template>
-      </van-field>
-      <van-field
-        v-model="username"
-        name="用户名"
-        label="用户名"
-        placeholder="用户名"
-        :rules="[{ required: true, message: '请填写用户名' }]">
-      </van-field>
-      <van-button style="margin-top: 60px" round block type="primary" native-type="submit">提交</van-button>
-    </van-form>
+    <div class="title">
+      <p>颜值变现</p>
+      <p>看看你和那个明星更匹配</p>
+    </div>
+    <div class="inner">
+      <van-form @submit="onSubmit">
+        <van-field name="uploader" label="头像上传">
+          <template #input>
+            <van-uploader v-model="fileList" multiple :max-count="1"/>
+          </template>
+        </van-field>
+        <van-field
+          v-model="username"
+          name="用户名"
+          label="用户名"
+          placeholder="用户名"
+          :rules="[{ required: true, message: '请填写用户名' }]">
+        </van-field>
+        <van-button style="margin-top: 60px" round block type="primary" native-type="submit">提交</van-button>
+      </van-form>
+    </div>
   </div>
 </template>
 <script>
@@ -56,6 +62,7 @@ export default {
       let resources = [];
       fileList.map(i => {
         let filePath = i.file;  //图片资源
+        console.log('filePath: ', filePath);
         let imgType = i.file.type.split('/')[1];  //图片类型
         let key = new Date().getTime() + Math.floor(Math.random() * 150) + '.' + imgType;
         let request = new FormData();
@@ -65,6 +72,7 @@ export default {
         request.append('key', policyObj.dir + key);// 文件名字，可设置路径
         request.append('success_action_status', 200);// 让服务端返回200,不然，默认会返回204
         request.append('file', filePath);// 需要上传的文件 file
+        console.log('request: ', request);
         $http({
           method: 'post',
           url: policyObj.host,
@@ -82,11 +90,19 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-  .outer {
+.outer {
+  font-size: 22px;
+  padding: 40px 0;
+  .title {
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .inner {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 100px 0;
   }
+}
 </style>
 

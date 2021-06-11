@@ -1,5 +1,5 @@
 {
-  "name": "zhi20_admin_h5",
+  "name": "zhi20_aggregate_h5",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",

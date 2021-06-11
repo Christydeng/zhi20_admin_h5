@@ -3,6 +3,10 @@ import {
 } from "vue-router"
 
 const routes = [
+    {
+        path: '/',
+        redirect: '/imageRecognition/index'
+    },
     // 中食指挥室
     {
         name: 'operations',
